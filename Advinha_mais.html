@@ -1,0 +1,81 @@
+<meta charset="UTF-8"> 
+
+<input/>
+<button>Compare com o meu segredo</button>
+
+<script>
+    function sorteia() {
+
+       return Math.round(Math.random() * 10); //Essa função é para pegar qualquer número aleatório
+
+    }
+
+    function sorteiaNumeros(quantidade) { //nessa estrutura montaremos o quantidade de numeros que teremos seja 1 a 1000
+
+        var segredos = []; //quanto mais numeros mais chance de acerto, claro. 
+
+        var numero = 1;
+
+        while(numero <= quantidade) {
+
+              var numeroAleatorio = sorteia();// Surge os numeros aleatorios.
+              var achou = false;
+
+              if (numeroAleatorio !== 0) { 					//nessa parte vamos excluir os "0".
+                     for(var posicao = 0; posicao < segredos.length; posicao++) {
+
+                           if(segredos[posicao] == numeroAleatorio){
+                                achou = true;
+                                break;
+                           }
+
+                     }
+
+                     if (achou == false) {
+                           segredos.push(numeroAleatorio);
+                           numero++;
+                     }
+              }
+
+        }
+
+        return segredos;
+
+    }
+
+    var segredos = sorteiaNumeros(2); //aqui definiremos quantos números da sorte teremos no caso do meu programa será "2".
+
+    console.log(segredos);
+
+    var input = document.querySelector("input");
+    input.focus();
+
+    function verifica() {  //Aqui excluimos as repetições ou seja nunca podera ser (1,2,3,3,5). Evitaremos essas repetições
+
+       var achou = false;
+
+       for(var posicao = 0; posicao < segredos.length; posicao++) {
+
+              if(input.value == segredos[posicao]) {
+
+                     alert("Você ACERTOU!");
+                     achou = true;
+                     break;
+              } 
+       }
+
+       if(achou == false) {
+
+              alert("Você ERROU!");
+       }
+
+       input.value = "";
+       input.focus();
+
+    }
+
+    var button = document.querySelector("button");//Faz conque conseguamos escrever no mundo javascript que esta no mundo do HTML
+
+    button.onclick = verifica;
+
+</script>
